@@ -19,22 +19,31 @@ const Input = ({ setData }) => {
     reader.onload = () => {
       const json = CsvToJson(reader.result);
       const states = new Map();
+      let totalOrders = 0;
 
       json.forEach((order) => {
         if (order["Ship Country\r"] == "United States\r") {
+          totalOrders++;
           const state = abbreviations[order["Ship State"]];
           states.set(state, states.get(state) + 1 || 1);
         }
       });
 
-      setData(states);
+      setData({ states, totalOrders });
     };
   };
 
   return (
-    <div className="absolute z-[1000] w-[100vw] h-[100vh] grid place-items-center bg-blue-600 bg-opacity-70">
-      <div className="p-6 rounded-lg text-white font-bold">
-        <input accept=".csv" type="file" id="csvInput" onChange={parseCsv} />
+    <div className="absolute z-[9999] w-[100vw] h-[100vh] grid place-items-center bg-blue-900 bg-opacity-80">
+      <div className="p-6 rounded-lg text-white flex flex-col items-center gap-4">
+        <p className="font-bold text-xl">Upload CSV</p>
+        <input
+          accept=".csv"
+          type="file"
+          id="csvInput"
+          onChange={parseCsv}
+          className="border-2 border-white border-dashed rounded-md p-2"
+        />
       </div>
     </div>
   );
