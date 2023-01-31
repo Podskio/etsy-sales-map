@@ -5,3 +5,5 @@ Simple tool to visualize Etsy orders in the United States. States with less orde
 ## Usage
 
 Download sales data from Etsy as a csv, then upload to site when prompted.
+
+<img src="assets/example.png" alt="example">
