@@ -22,10 +22,20 @@ const Input = ({ setData }) => {
       let totalOrders = 0;
 
       json.forEach((order) => {
-        if (order["Ship Country\r"] == "United States\r") {
+        const shipCountryKey = Object.keys(order).find((key) =>
+          key.includes("Ship Country")
+        );
+        const shipCountry = order[shipCountryKey];
+
+        const shipStateKey = Object.keys(order).find((key) =>
+          key.includes("Ship State")
+        );
+        const shipState = order[shipStateKey];
+
+        if (shipCountry.includes("United States")) {
           totalOrders++;
-          const state = abbreviations[order["Ship State"]];
-          states.set(state, states.get(state) + 1 || 1);
+          const stateAbbrev = abbreviations[shipState];
+          states.set(stateAbbrev, states.get(stateAbbrev) + 1 || 1);
         }
       });
 
