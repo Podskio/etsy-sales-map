@@ -45,11 +45,12 @@ const Map = ({ data }) => {
             if (!data) return;
 
             const numOrders = data.states.get(feature.properties.NAME);
+            const orderPercentage = (numOrders / data.totalOrders) * 100;
 
             layer.bindPopup(
               `<h1>${feature.properties.NAME} - ${numOrders ?? 0} order${
                 numOrders !== 1 ? "s" : ""
-              } - ${((numOrders / data.totalOrders) * 100).toFixed(1)}%</h1>`
+              } - ${(isNaN(orderPercentage) ? 0 : orderPercentage).toFixed(1)}%</h1>`
             );
           }}
         />
